@@ -3,6 +3,7 @@
 		"-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
 		"https://checkstyle.org/dtds/suppressions_1_2.dtd">
 <suppressions>
+	<suppress checks="IllegalImport" files="io[\\/]micrometer[\\/]build.+" />
 	<suppress checks="IllegalImport" files="io[\\/]micrometer[\\/]core[\\/]instrument[\\/]binder[\\/]logging[\\/].+" />
 	<suppress checks="IllegalImport" files="io[\\/]micrometer[\\/]core[\\/]util[\\/]internal[\\/]logging[\\/].+" />
 	<suppress checks="IllegalImport" files="io[\\/]micrometer[\\/]common[\\/]util[\\/]internal[\\/]logging[\\/].+" />
@@ -22,4 +23,5 @@
 	<suppress id="sysout" files="benchmarks[\\/].+" />
 	<suppress id="sysout" files="[\\/]samples[\\/].*"/>
 	<suppress id="sysout" files="[\\/]src[\\/]test[\\/].*"/>
+	<suppress id="sysout" files="[\\/]buildSrc[\\/].*"/>
 </suppressions>

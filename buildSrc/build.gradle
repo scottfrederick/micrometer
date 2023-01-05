@@ -1,0 +1,78 @@
+plugins {
+	id "java-gradle-plugin"
+	id "io.spring.javaformat" version "${javaFormatVersion}"
+	id "checkstyle"
+	id "eclipse"
+}
+
+repositories {
+	mavenCentral()
+	gradlePluginPortal()
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+	checkstyle("io.spring.javaformat:spring-javaformat-checkstyle:${javaFormatVersion}")
+	checkstyle("io.spring.nohttp:nohttp-gradle:0.0.10")
+
+	implementation("com.diffplug.spotless:spotless-plugin-gradle:6.12.1")
+	implementation("com.gradle:gradle-enterprise-gradle-plugin:3.12.1")
+	implementation("com.netflix.nebula:gradle-contacts-plugin:6.0.0")
+	implementation("com.netflix.nebula:gradle-info-plugin:11.4.1")
+	implementation("com.netflix.nebula:nebula-release-plugin:16.1.0")
+	implementation("com.netflix.nebula:nebula-publishing-plugin:18.4.0")
+	implementation("com.netflix.nebula:nebula-project-plugin:9.4.0")
+	implementation("de.undercouch:gradle-download-task:5.2.1")
+	implementation("gradle.plugin.com.hierynomus.gradle.plugins:license-gradle-plugin:0.16.1")
+	implementation("io.github.gradle-nexus:publish-plugin:1.1.0")
+	implementation("io.spring.javaformat:spring-javaformat-gradle-plugin:${javaFormatVersion}")
+	implementation("io.spring.nohttp:nohttp-gradle:0.0.10")
+	implementation("me.champeau.gradle:japicmp-gradle-plugin:0.4.1")
+	implementation("org.asciidoctor:asciidoctor-gradle-jvm:3.3.2")
+	implementation("org.gradle:test-retry-gradle-plugin:1.4.1")
+	implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+
+	testImplementation("org.assertj:assertj-core:3.11.1")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
+
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+checkstyle {
+	toolVersion = "8.45.1"
+	configDirectory = new File("$rootProject.projectDir/../config/checkstyle")
+}
+
+gradlePlugin {
+	plugins {
+		conventionsPlugin {
+			id = "io.micrometer.conventions"
+			implementationClass = "io.micrometer.build.conventions.ConventionsPlugin"
+		}
+		jarComparePlugin {
+			id = "io.micrometer.compare"
+			implementationClass = "io.micrometer.build.compare.JarComparePlugin"
+		}
+		releasePlugin {
+			id = "io.micrometer.release"
+			implementationClass = "io.micrometer.build.release.ReleasePlugin"
+		}
+		publishPlugin {
+			id = "io.micrometer.publish"
+			implementationClass = "io.micrometer.build.publish.PublishPlugin"
+		}
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
+
+eclipse.classpath.file.whenMerged {
+	def jreEntry = entries.find { it.path.contains("org.eclipse.jdt.launching.JRE_CONTAINER") }
+	jreEntry.entryAttributes['module'] = 'true'
+	jreEntry.entryAttributes['limit-modules'] = 'java.base'
+}
+

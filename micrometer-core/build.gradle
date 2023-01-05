@@ -1,5 +1,5 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.7.10"
+    id "org.jetbrains.kotlin.jvm"
     id 'me.champeau.mrjar' version "0.1.1"
 }
 
@@ -7,18 +7,6 @@ description 'Core module of Micrometer containing instrumentation API and implem
 
 multiRelease {
     targetVersions 8, 11
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = javaTargetVersion
-    }
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinTest).all {
-    kotlinOptions {
-        jvmTarget = JavaVersion.toVersion(javaLanguageVersion)
-    }
 }
 
 dependencies {
@@ -214,8 +202,8 @@ java11Test {
         it.getFile().getAbsolutePath().contains("java11Test")
     }
 
-    retry {
-        maxFailures = 5
-        maxRetries = 3
-    }
+//    retry {
+//        maxFailures = 5
+//        maxRetries = 3
+//    }
 }

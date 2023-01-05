@@ -70,8 +70,4 @@ java11Test {
         it.getFile().getAbsolutePath().contains("java11Test")
     }
 
-    retry {
-        maxFailures = 5
-        maxRetries = 3
-    }
 }

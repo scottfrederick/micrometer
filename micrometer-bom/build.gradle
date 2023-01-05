@@ -1,5 +1,7 @@
 plugins {
     id 'java-platform'
+    id 'io.micrometer.publish'
+    id 'io.micrometer.conventions'
 }
 
 description 'Micrometer BOM (Bill of Materials) for managing Micrometer artifact versions'
@@ -18,10 +20,3 @@ dependencies {
     }
 }
 
-publishing {
-    publications {
-        nebula(MavenPublication) {
-            from components.javaPlatform
-        }
-    }
-}
